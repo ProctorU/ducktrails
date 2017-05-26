@@ -5,11 +5,9 @@ require 'ducktrails/tags'
 module Ducktrails
   module ViewHelpers
     class Breadcrumber < Tag
-      include ::ActionView::Context
 
-      def initialize(template, options = {})
-        @template = template
-
+      def initialize(options = {})
+        @template = options[:template]
         @output_buffer = ActionView::OutputBuffer.new
       end
 
@@ -19,7 +17,7 @@ module Ducktrails
     end
 
     def breadcrumbs(options = {})
-      ducktrail_render
+      ducktrail_render(LinkCollection.new(yield, current_uri, current_request).links)
     end
 
     def home_crumb(options = {})
@@ -28,16 +26,20 @@ module Ducktrails
 
     private
 
-    def split_uri
-      current_uri.split('/').reject(&:empty?)
-    end
-
     def current_uri
-      request.env['PATH_INFO']
+      request.fullpath
     end
 
-    def ducktrail_render
-      @_ducktrail_render ||= Breadcrumber.new(self, split_uri).to_s
+    def current_request
+      request
+    end
+
+    def current_action
+      Rails.application.routes.recognize_path(current_uri)[:action]
+    end
+
+    def ducktrail_render(links)
+      @_ducktrail_render ||= Breadcrumber.new(template: self).to_s(links: links)
     end
   end
 

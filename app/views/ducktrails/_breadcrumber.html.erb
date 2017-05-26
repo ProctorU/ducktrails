@@ -2,10 +2,9 @@
   <div class="container">
     <ol class="breadcrumb">
       <li><%= home_crumb %></li>
-      <% split_uri.each do |link| %>
+      <% links.each do |link| %>
         <%= render partial: 'ducktrails/crumb_link', locals: { link: link } %>
       <% end %>
-      <li class="active">Current Page</li>
     </ol>
   </div>
 </div>

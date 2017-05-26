@@ -1,5 +1,7 @@
 module Ducktrails
   class Tag
+    include ::ActionView::Context
+
     def initialize(template, options = {})
       @template = template
       @options = options.dup
@@ -8,7 +10,7 @@ module Ducktrails
     end
 
     def to_s(locals = {})
-      @template.render partial_path
+      @template.render partial_path, links: locals[:links]
     end
 
     def partial_path
