@@ -1,5 +1,10 @@
 require 'concerns/configurable'
 
+DEFAULTS = {
+  key: :name,
+  policy: true
+}
+
 module Ducktrails
   class LinkCollection < Array
     include Configurable
@@ -7,7 +12,7 @@ module Ducktrails
     attr_accessor :resources, :current_uri, :request
 
     def initialize(resources, current_uri, request)
-      @resources ||= resources
+      @resources ||= set_default_resources(resources)
       @current_uri ||= current_uri
       @request ||= request
     end
@@ -31,7 +36,7 @@ module Ducktrails
     def generate_uri_breadcrumbs
       split_uri.inject([]) do |links, uri_resource|
         links << build_uri_link(uri_resource)
-      end
+      end.compact
     end
 
     def build_link(text, uri)
@@ -44,10 +49,12 @@ module Ducktrails
     def build_uri_link(uri_segment)
       index = split_uri.index(uri_segment)
       if resources[uri_segment.to_sym].present?
+        return unless resources[uri_segment.to_sym][:policy]
         # Build resource link
         # example /institutions/:institution_id/iterations/:id
         build_link(text_link(resources[uri_segment.to_sym], index.odd?), split_uri[0..index].join('/').prepend('/'))
       elsif index.odd? && resources[split_uri[index - 1].to_sym].present?
+        return unless resources[split_uri[index - 1].to_sym][:policy]
         build_link(text_link(resources[split_uri[index - 1].to_sym], index.odd?), split_uri[0..index].join('/').prepend('/'))
       else
         # build links based off of uri
@@ -88,6 +95,16 @@ module Ducktrails
 
     def action
       @action ||= request_pattern[:action]
+    end
+
+    def set_default_resources(yield_resources)
+      yield_resources.inject({}) do |resources, resource|
+        resources.merge(
+          {
+            resource[0] => DEFAULTS.merge(resource[1])
+          }
+        )
+      end
     end
   end
 end
