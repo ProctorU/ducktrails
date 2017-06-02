@@ -5,6 +5,7 @@ require 'ducktrails/tags'
 module Ducktrails
   module ViewHelpers
     class Breadcrumber < Tag
+      include Configurable
 
       def initialize(options = {})
         @template = options[:template]
@@ -21,7 +22,7 @@ module Ducktrails
     end
 
     def home_crumb(options = {})
-      link_to(Ducktrails.config.home_name, '/')
+      link_to(home_name, '/')
     end
 
     private
