@@ -1,0 +1,9 @@
+machine:
+  ruby:
+    version: 2.3.3
+  timezone:
+    America/Chicago
+
+test:
+  override:
+    - 'bundle exec rake'

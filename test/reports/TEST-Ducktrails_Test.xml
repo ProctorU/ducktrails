@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.001792' skipped='0' failures='0' errors='0' name="Ducktrails::Test" assertions='1' tests='1'>
+  <testcase time='0.001792' file="test/ducktrails_test.rb" name="test_truth" assertions='1'>
+  </testcase>
+</testsuite>
