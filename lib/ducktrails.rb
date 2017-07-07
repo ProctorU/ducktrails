@@ -13,8 +13,7 @@ warning: no framework detected.
 Your Gemfile might not be configured properly.
 ---- e.g. ----
 Rails:
-    gem 'kaminari'
-
+    gem 'ducktrails'
 EOC
 
 require 'ducktrails/config'
