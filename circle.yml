@@ -4,6 +4,10 @@ machine:
   timezone:
     America/Chicago
 
+database:
+  override:
+    - 'rvm-exec 2.3.4 bundle exec rake --rakefile test/dummy/Rakefile db:setup'
+
 test:
   override:
     - 'bundle exec rake'
