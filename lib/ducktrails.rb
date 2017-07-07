@@ -14,7 +14,6 @@ Your Gemfile might not be configured properly.
 ---- e.g. ----
 Rails:
     gem 'ducktrails'
-
 EOC
 
 require 'ducktrails/config'
