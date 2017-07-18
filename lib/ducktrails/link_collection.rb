@@ -29,7 +29,7 @@ module Ducktrails
     # Should render an index as _current_page if action is index
     # If resources are empty, generate breadcrumbs from the uri?
     def build_links
-      return generate_uri_breadcrumbs if Ducktrails.config.fallback_to_uri
+      return generate_uri_breadcrumbs if Ducktrails.config.fallback_to_uri || @resources.nil?
       raise 'Please provide block configuration for breadcrumbs.'
     end
 
@@ -97,7 +97,8 @@ module Ducktrails
       @action ||= request_pattern[:action]
     end
 
-    def set_default_resources(yield_resources)
+    def set_default_resources(yield_resources = nil)
+      return if yield_resources.nil?
       yield_resources.inject({}) do |resources, resource|
         resources.merge(
           {
