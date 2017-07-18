@@ -70,7 +70,6 @@ module Ducktrails
       end
 
       if resource[:resource].nil?
-        return resource[:resource][:name] if resource[:resource].present?
         return request_pattern[:controller].split('/').last.underscore.humanize.pluralize.prepend(collection_prefix)
       end
 
