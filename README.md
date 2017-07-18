@@ -2,7 +2,7 @@
 
 Automatically generates breadcrumbs based on routes.
 
-**Warning: This API is still alpha; we welcome PRs and ideas as isues.**
+**Warning: This API is still alpha; we welcome PRs and ideas as issues.**
 
 [![Ducktails Theme](http://i.imgur.com/g0PXjHX.png)](https://www.youtube.com/watch?v=CMU2NwaaXEA "Ducktails Theme")
 
