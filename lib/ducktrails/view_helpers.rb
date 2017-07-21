@@ -17,7 +17,9 @@ module Ducktrails
     end
 
     def breadcrumbs(&block)
-        ducktrail_render(LinkCollection.new(yield, current_uri, current_request).links)
+      resources = block_given? ? yield : nil
+
+      ducktrail_render(LinkCollection.new(resources, current_uri, current_request).links)
     end
 
     def home_crumb(options = {})

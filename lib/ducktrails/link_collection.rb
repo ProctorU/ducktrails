@@ -3,7 +3,7 @@ require 'concerns/configurable'
 DEFAULTS = {
   key: :name,
   policy: true
-}.assert_valid_keys(:key, :policy)
+}.freeze
 
 module Ducktrails
   class LinkCollection < Array

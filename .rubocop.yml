@@ -20,6 +20,8 @@ Style/MultilineOperationIndentation:
   Enabled: false
 Style/ParenthesesAroundCondition:
   Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
 Style/StringLiterals:
   Enabled: false
 LineLength:
