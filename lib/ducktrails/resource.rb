@@ -14,17 +14,17 @@ module Ducktrails
     end
 
     def link
+      # Build resource link
+      # example /institutions/:institution_id/iterations/:id
       if resources.send(resource.to_sym).present?
         return unless resources[resource.to_sym][:policy]
-        # Build resource link
-        # example /institutions/:institution_id/iterations/:id
-        build_link(link_text(resources[resource.to_sym]), progressive_uri)
+        build_link(link_text(resources[resource.to_sym]))
       elsif index.odd? && resources[uri_array[index - 1].to_sym].present?
         return unless resources[uri_array[index - 1].to_sym][:policy]
-        build_link(link_text(resources[uri_array[index - 1].to_sym]), progressive_uri)
+        build_link(link_text(resources[uri_array[index - 1].to_sym]))
       else
         # build links based off of uri
-        build_link(link_text(resource.underscore.humanize), progressive_uri)
+        build_link(link_text(resource.underscore.humanize))
       end
     end
 
@@ -34,10 +34,10 @@ module Ducktrails
       uri_array.index(resource)
     end
 
-    def build_link(text, uri)
+    def build_link(text)
       {
         text: text,
-        uri: uri
+        uri: progressive_uri
       }
     end
 
@@ -81,6 +81,7 @@ module Ducktrails
     end
 
     def col_prefix
+      return collection_prefix if resources[resource].nil?
       resources[resource].collection_prefix.present? ? resources[resource].collection_prefix.concat(' ') : collection_prefix
     end
 

@@ -1,5 +1,5 @@
 module Ducktrails
-  VALID_RESOURCES = %i(resource collection_prefix as policy)
+  VALID_RESOURCES = %i(resource collection_prefix as policy).freeze
 end
 
 begin

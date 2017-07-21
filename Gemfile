@@ -12,6 +12,11 @@ gemspec
 
 gem 'minitest-ci'   # for CircleCI
 
-group :development do
+group :test do
+  gem 'mocha'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
   gem 'pry'
 end
