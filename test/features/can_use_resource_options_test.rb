@@ -4,7 +4,6 @@ class CanUseResourceOptionsTest < Capybara::Rails::TestCase
   feature 'with resources given' do
     before(:each) do
       create(:post)
-      binding.pry
       visit post_path(Post.first)
     end
 
