@@ -17,6 +17,7 @@ module Ducktrails
   class Configuration #:nodoc:
     include ActiveSupport::Configurable
     config_accessor :root_path
+    config_accessor :theme
     config_accessor :home_name
     # TODO: How to set this?
     config_accessor :collection_prefix
@@ -36,6 +37,7 @@ module Ducktrails
   # this is ugly. why can't we pass the default value to config_accessor...?
   configure do |config|
     config.root_path = '/'
+    config.theme = 'ducktrails'
     config.home_name = 'Home'
     config.collection_prefix = 'All'
     config.default_key = :id

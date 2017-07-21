@@ -10,11 +10,17 @@ Style/AlignHash:
   Enabled: false
 Style/AlignParameters:
   Enabled: false
-Style/StringLiterals:
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MultilineOperationIndentation:
   Enabled: false
-Style/ClassAndModuleChildren:
+Style/ParenthesesAroundCondition:
+  Enabled: false
+Style/StringLiterals:
   Enabled: false
 LineLength:
   Max: 100
@@ -27,8 +33,4 @@ Style/SpaceBeforeFirstArg:
 AmbiguousOperator:
   Enabled: false
 MultilineMethodCallIndentation:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/ParenthesesAroundCondition:
   Enabled: false
