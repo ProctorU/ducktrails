@@ -51,11 +51,12 @@ module Ducktrails
       if resource.is_a?(String)
         # TODO Still need to account for edit and new
         return resource if show_action
-        return resource.prepend(collection_prefix)
+        return resource.prepend(col_prefix)
       end
 
-      if resource[:resource].nil?
-        return request_pattern[:controller].split('/')[index].underscore.humanize.pluralize.prepend(collection_prefix)
+      if resource.resource.nil?
+        return resource.as.prepend(col_prefix) unless resource.resource.present? && resource.as.nil?
+        return request_pattern[:controller].split('/')[index].underscore.humanize.pluralize.prepend(col_prefix)
       end
 
       if show_action
@@ -66,17 +67,21 @@ module Ducktrails
     end
 
     def resourcer(resource)
+      # NOTE Accounts for Draper objects
       resource = resource[:resource].object if resource[:resource].respond_to?(:object)
-      resource.resource.class.name.split('::').first.underscore.humanize.pluralize.prepend(collection_prefix)
+      resource.resource.class.name.split('::').first.underscore.humanize.pluralize.prepend(col_prefix)
     end
 
     def request_pattern(url = nil)
       @request_pattern ||= Rails.application.routes.recognize_path(url || current_uri)
     end
 
-    # Only describes the CURRRENT PAGE, not the current link state
-    def action
+    def current_action
       @action ||= request_pattern[:action]
+    end
+
+    def col_prefix
+      resources[resource].collection_prefix.present? ? resources[resource].collection_prefix.concat(' ') : collection_prefix
     end
 
     %w(index show edit new).each do |action_name|

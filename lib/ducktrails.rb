@@ -1,4 +1,5 @@
 module Ducktrails
+  VALID_RESOURCES = %i(resource collection_prefix as policy)
 end
 
 begin

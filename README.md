@@ -15,6 +15,32 @@ Would render:
 
 `Home / All Users / user-name / All Posts / post-name`
 
+Simply include `= breadcrumbs` in your view. `breadcrumbs` takes a block argument.
+
+Resources are inferred and will be used to manipulate each URI segment. If a resource is not found, Ducktrails will fallback to the URI.
+
+```erb
+<%=
+  breadcrumbs do
+    {
+      users: {
+        resource: @user,
+        key: :first_name,
+        collection_prefix: 'Some'
+      }
+    }
+  end
+%>
+```
+Will output
+
+Action | Breadcrumb
+---|---
+index |`Home / Some Users`
+show |`Home / Some Users / Kevin`
+new |`Home / Some Users / New`
+edit |`Home /Some Users / Kevin / edit`
+
 ## Installation
 Add this line to your application's Gemfile:
 

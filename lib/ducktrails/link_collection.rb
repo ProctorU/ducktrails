@@ -41,6 +41,7 @@ module Ducktrails
     def default_resources(yield_resources = nil)
       return {} if yield_resources.nil?
       yield_resources.inject({}) do |resources, resource|
+        resource[1].assert_valid_keys(Ducktrails::VALID_RESOURCES)
         resources.merge(resource[0] => DEFAULTS.merge(resource[1]))
       end
     end
