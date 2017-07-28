@@ -54,22 +54,22 @@ module Ducktrails
         return resource.prepend(col_prefix)
       end
 
-      if resource.resource.nil?
-        return resource.as.prepend(col_prefix) unless resource.resource.present? && resource.as.nil?
+      if resource.nil? || resource.resource.nil?
+        return resource.as.prepend(col_prefix) unless resource.resource.present? || resource.as.nil?
         return request_pattern[:controller].split('/')[index].underscore.humanize.pluralize.prepend(col_prefix)
       end
 
       if show_action
         resource[:resource].send(resource[:key])
       else
-        resourcer(resource)
+        resourcer(resource.try(:resource))
       end
     end
 
     def resourcer(resource)
       # NOTE Accounts for Draper objects
       resource = resource[:resource].object if resource[:resource].respond_to?(:object)
-      resource.resource.class.name.split('::').first.underscore.humanize.pluralize.prepend(col_prefix)
+      resource.class.name.split('::').first.underscore.humanize.pluralize.prepend(col_prefix)
     end
 
     def request_pattern(url = nil)
