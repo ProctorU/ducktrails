@@ -1,4 +1,8 @@
 require_relative 'utils/deep_struct'
+# TODO: below
+# 1. Too many conflicting name-spaces remaining from the first version
+# 2. Class doesn't do 1 thing
+# 3. Some redundancy between methods
 
 module Ducktrails
   class Resource
@@ -16,13 +20,12 @@ module Ducktrails
     def link
       # Build resource link
       # example /institutions/:institution_id/iterations/:id
-
       if resources.send(resource.to_sym).present?
         return unless resources[resource.to_sym][:policy]
         build_link(link_text(resources[resource.to_sym]))
-      elsif (show_action || new_action || edit_action) && index_minus_1.present?
-        return unless index_minus_1[:policy]
-        build_link(link_text(index_minus_1))
+      elsif (show_action || new_action || edit_action) && current_resource.present?
+        return unless current_resource[:policy]
+        build_link(link_text(current_resource))
       else
         # build links based off of uri
         build_link(link_text(resource.underscore.humanize))
@@ -31,12 +34,13 @@ module Ducktrails
 
     private
 
-    def index
+    def uri_index
       uri_array.index(resource)
     end
 
-    def index_minus_1
-      resources[uri_array[index - 1].to_sym]
+    # TODO: Refactor this to use a resource given by the view_helpers?
+    def current_resource
+      resources[request_pattern[:controller].to_sym]
     end
 
     def build_link(text)
@@ -47,7 +51,7 @@ module Ducktrails
     end
 
     def progressive_uri
-      uri_array[0..index].join('/').prepend('/')
+      uri_array[0..uri_index].join('/').prepend('/')
     end
 
     # TODO factor out the resource & key to use config if key is nil
@@ -61,7 +65,7 @@ module Ducktrails
 
       if resource.nil? || resource.resource.nil?
         return resource.as.prepend(col_prefix) unless resource.resource.present? || resource.as.nil?
-        return request_pattern[:controller].split('/')[index].underscore.humanize.pluralize.prepend(col_prefix)
+        return request_pattern[:controller].split('/')[uri_index].underscore.humanize.pluralize.prepend(col_prefix)
       end
 
       if show_action
