@@ -54,14 +54,8 @@ module Ducktrails
       uri_array[0..uri_index].join('/').prepend('/')
     end
 
-    # TODO factor out the resource & key to use config if key is nil
-    # All formatting done here
     def link_text(resource)
-      if resource.is_a?(String)
-        # TODO Still need to account for edit and new
-        return resource if show_action
-        return resource.prepend(col_prefix)
-      end
+      return string_resource if resource.is_a?(String)
 
       if resource.nil? || resource.resource.nil?
         return resource.as.prepend(col_prefix) unless resource.resource.present? || resource.as.nil?
@@ -76,6 +70,11 @@ module Ducktrails
       else
         resourcer(resource.try(:resource))
       end
+    end
+
+    def string_resource
+      return resource if show_action || edit_action || new_action
+      resource.prepend(col_prefix)
     end
 
     def resourcer(resource)
