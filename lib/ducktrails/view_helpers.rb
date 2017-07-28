@@ -17,10 +17,10 @@ module Ducktrails
 
     def breadcrumbs(&block)
       resources = block_given? ? yield : nil
-
       ducktrail_render(LinkCollection.new(resources, current_uri, current_request).links)
     end
 
+    # TODO: Take this out and just use a view?
     def home_crumb(options = {})
       link_to(Ducktrails.config.home_name, Ducktrails.config.root_path)
     end

@@ -65,19 +65,20 @@ module Ducktrails
 
       if resource.nil? || resource.resource.nil?
         return resource.as.prepend(col_prefix) unless resource.resource.present? || resource.as.nil?
-        return request_pattern[:controller].split('/')[uri_index].underscore.humanize.pluralize.prepend(col_prefix)
+        return request_pattern[:controller].split('/')[uri_index].underscore.humanize.pluralize.
+          prepend(col_prefix)
       end
 
       if show_action
         resource[:resource].send(resource[:key])
+      elsif edit_action
+        'Edit ' + resourcer(resource.try(:resource)).singularize
       else
         resourcer(resource.try(:resource))
       end
     end
 
     def resourcer(resource)
-      # NOTE Accounts for Draper objects
-      resource = resource[:resource].object if resource[:resource].respond_to?(:object)
       resource.class.name.split('::').first.underscore.humanize.pluralize.prepend(col_prefix)
     end
 
@@ -91,7 +92,11 @@ module Ducktrails
 
     def col_prefix
       return '' if new_action || edit_action
-      resources[resource]&.collection_prefix.present? ? resources[resource].collection_prefix.concat(' ') : collection_prefix
+      if resources[resource]&.collection_prefix.present?
+        resources[resource].collection_prefix.concat(' ')
+      else
+        collection_prefix
+      end
     end
 
     %w(index show edit new).each do |action_name|

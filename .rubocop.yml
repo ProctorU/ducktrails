@@ -3,7 +3,7 @@
 AllCops:
   Exclude:
     - 'docs/**'
-
+  TargetRubyVersion: 2.3.0
 Style/AlignArray:
   Enabled: false
 Style/AlignHash:
