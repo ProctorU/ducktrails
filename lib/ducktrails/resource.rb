@@ -16,12 +16,13 @@ module Ducktrails
     def link
       # Build resource link
       # example /institutions/:institution_id/iterations/:id
+
       if resources.send(resource.to_sym).present?
         return unless resources[resource.to_sym][:policy]
         build_link(link_text(resources[resource.to_sym]))
-      elsif index.odd? && resources[uri_array[index - 1].to_sym].present?
-        return unless resources[uri_array[index - 1].to_sym][:policy]
-        build_link(link_text(resources[uri_array[index - 1].to_sym]))
+      elsif (show_action || new_action || edit_action) && index_minus_1.present?
+        return unless index_minus_1[:policy]
+        build_link(link_text(index_minus_1))
       else
         # build links based off of uri
         build_link(link_text(resource.underscore.humanize))
@@ -32,6 +33,10 @@ module Ducktrails
 
     def index
       uri_array.index(resource)
+    end
+
+    def index_minus_1
+      resources[uri_array[index - 1].to_sym]
     end
 
     def build_link(text)
