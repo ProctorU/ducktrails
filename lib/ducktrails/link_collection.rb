@@ -34,8 +34,30 @@ module Ducktrails
       return {} if yield_resources.nil?
       yield_resources.inject({}) do |resources, resource|
         resource[1].assert_valid_keys(Ducktrails::VALID_RESOURCES)
-        resources.merge(resource[0] => DEFAULTS.merge(resource[1]))
+        @resource = resource[1]
+        resources.merge(
+          resource[0] => DEFAULTS.merge(sanitized_resource)
+        )
       end
+    end
+
+    # Used to filter and sanitize decorated resources
+    def sanitized_resource
+      return @resource if @resource.is_a?(String)
+      return unobjectified_resource if resource_decorated?
+      @resource
+    end
+
+    def unobjectified_resource
+      @resource[:resource] = @resource[:resource].object
+      @resource
+    end
+
+    def resource_decorated?
+      @resource[:resource].respond_to?(:decorated?) &&
+        @resource[:resource].decorated?
+    rescue NoMethodError
+      @resource
     end
   end
 end

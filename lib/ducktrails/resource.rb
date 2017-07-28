@@ -90,8 +90,8 @@ module Ducktrails
     end
 
     def col_prefix
-      return collection_prefix if resources[resource].nil?
-      resources[resource].collection_prefix.present? ? resources[resource].collection_prefix.concat(' ') : collection_prefix
+      return '' if new_action || edit_action
+      resources[resource]&.collection_prefix.present? ? resources[resource].collection_prefix.concat(' ') : collection_prefix
     end
 
     %w(index show edit new).each do |action_name|
