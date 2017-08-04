@@ -1,7 +1,9 @@
 <div class="breadcrumb-container">
   <div class="container">
     <ol class="breadcrumb">
-      <li><%= home_crumb %></li>
+      <li>
+        <%= link_to(Ducktrails.config.home_name, Ducktrails.config.root_path) %>
+      </li>
       <% links.each do |link| %>
         <%= render partial: 'ducktrails/crumb_link', locals: { link: link } %>
       <% end %>
