@@ -8,3 +8,4 @@ test/dummy/tmp/
 test/reports
 test/dummy/log
 *.gem
+.ruby-version

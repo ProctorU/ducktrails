@@ -59,8 +59,7 @@ module Ducktrails
 
       if resource.nil? || resource.resource.nil?
         return resource.as.prepend(col_prefix) unless resource.resource.present? || resource.as.nil?
-        return request_pattern[:controller].split('/')[uri_index].underscore.titleize.pluralize.
-          prepend(col_prefix)
+        return controller_resource_title
       end
 
       if show_action
@@ -83,6 +82,12 @@ module Ducktrails
 
     def request_pattern(url = nil)
       @request_pattern ||= Rails.application.routes.recognize_path(url || current_uri)
+    end
+
+    def controller_resource_title
+      return string_resource if request_pattern[:controller].split('/')[uri_index].nil?
+      request_pattern[:controller].split('/')[uri_index].underscore.titleize.pluralize.
+        prepend(col_prefix)
     end
 
     def current_action
