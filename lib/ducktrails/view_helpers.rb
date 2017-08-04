@@ -7,32 +7,31 @@ module Ducktrails
     class Breadcrumber < Tag
       def initialize(options = {})
         @template = options[:template]
-        @output_buffer = ActionView::OutputBuffer.new
-      end
-
-      def render(&block)
-        @output_buffer
       end
     end
 
     def breadcrumbs(&block)
-      resources = block_given? ? yield : nil
-      ducktrail_render(LinkCollection.new(resources, current_uri, current_request).links)
+      resources = build_resource(&block)
+      ducktrail_render(LinkCollection.new(resources, current_uri).links)
     end
 
     # TODO: Take this out and just use a view?
     def home_crumb(options = {})
-      link_to(Ducktrails.config.home_name, Ducktrails.config.root_path)
+      link_to(duck_config.home_name, duck_config.root_path)
+    end
+
+    def build_resource(&block)
+      block_given? ? yield : nil
     end
 
     private
 
-    def current_uri
-      request.fullpath
+    def duck_config
+      @config ||= Ducktrails.config
     end
 
-    def current_request
-      request
+    def current_uri
+      request.fullpath
     end
 
     def current_action

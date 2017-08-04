@@ -9,12 +9,11 @@ module Ducktrails
   class LinkCollection < Array
     include Configurable
 
-    attr_accessor :resources, :current_uri, :request
+    attr_accessor :resources, :current_uri
 
-    def initialize(resources, current_uri, request)
+    def initialize(resources, current_uri)
       @resources ||= default_resources(resources)
       @current_uri ||= current_uri
-      @request ||= request
     end
 
     def links

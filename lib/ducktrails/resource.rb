@@ -11,10 +11,10 @@ module Ducktrails
     attr_reader :resources, :resource, :uri_array, :current_uri
 
     def initialize(resources, resource, uri_array, current_uri)
-      @resources ||= DeepStruct.new(resources)
-      @resource ||= resource
-      @uri_array ||= uri_array
-      @current_uri ||= current_uri
+      @resources = DeepStruct.new(resources)
+      @resource = resource
+      @uri_array = uri_array
+      @current_uri = current_uri
     end
 
     def link
@@ -28,7 +28,7 @@ module Ducktrails
         build_link(link_text(current_resource))
       else
         # build links based off of uri
-        build_link(link_text(resource.underscore.humanize))
+        build_link(link_text(resource.underscore.titleize))
       end
     end
 
@@ -40,7 +40,7 @@ module Ducktrails
 
     # TODO: Refactor this to use a resource given by the view_helpers?
     def current_resource
-      resources[request_pattern[:controller].to_sym]
+      resources[request_pattern[:controller].split('/').last.to_sym]
     end
 
     def build_link(text)
@@ -59,7 +59,7 @@ module Ducktrails
 
       if resource.nil? || resource.resource.nil?
         return resource.as.prepend(col_prefix) unless resource.resource.present? || resource.as.nil?
-        return request_pattern[:controller].split('/')[uri_index].underscore.humanize.pluralize.
+        return request_pattern[:controller].split('/')[uri_index].underscore.titleize.pluralize.
           prepend(col_prefix)
       end
 
@@ -74,11 +74,11 @@ module Ducktrails
 
     def string_resource
       return resource if show_action || edit_action || new_action
-      resource.prepend(col_prefix)
+      resource.titleize.prepend(col_prefix)
     end
 
     def resourcer(resource)
-      resource.class.name.split('::').first.underscore.humanize.pluralize.prepend(col_prefix)
+      resource.class.name.split('::').first.underscore.titleize.pluralize.prepend(col_prefix)
     end
 
     def request_pattern(url = nil)

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ducktrails (0.0.1)
+    ducktrails (0.0.2)
       rails (>= 4.1)
 
 GEM
@@ -167,4 +167,4 @@ DEPENDENCIES
   pry
 
 BUNDLED WITH
-   1.15.2
+   1.15.3
