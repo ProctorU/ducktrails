@@ -6,4 +6,6 @@ test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
 test/reports
+test/dummy/log
 *.gem
+.ruby-version

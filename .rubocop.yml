@@ -3,18 +3,30 @@
 AllCops:
   Exclude:
     - 'docs/**'
-
+  TargetRubyVersion: 2.3.0
 Style/AlignArray:
   Enabled: false
 Style/AlignHash:
   Enabled: false
 Style/AlignParameters:
   Enabled: false
-Style/StringLiterals:
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/EmptyMethod:
+  Enabled: false
+Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MultilineOperationIndentation:
   Enabled: false
-Style/ClassAndModuleChildren:
+Style/NumericLiterals:
+  Enabled: false
+Style/ParenthesesAroundCondition:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
+Style/StringLiterals:
   Enabled: false
 LineLength:
   Max: 100
@@ -27,8 +39,4 @@ Style/SpaceBeforeFirstArg:
 AmbiguousOperator:
   Enabled: false
 MultilineMethodCallIndentation:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/ParenthesesAroundCondition:
   Enabled: false

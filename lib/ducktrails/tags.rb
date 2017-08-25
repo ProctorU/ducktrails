@@ -15,8 +15,8 @@ module Ducktrails
 
     def partial_path
       [
-       'ducktrails',
-       self.class.name.demodulize.underscore
+        Ducktrails.config.theme,
+        self.class.name.demodulize.underscore
       ].compact.join("/")
     end
   end

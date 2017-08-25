@@ -5,33 +5,24 @@ require 'ducktrails/tags'
 module Ducktrails
   module ViewHelpers
     class Breadcrumber < Tag
-
       def initialize(options = {})
         @template = options[:template]
-        @output_buffer = ActionView::OutputBuffer.new
-      end
-
-      def render(&block)
-        @output_buffer
       end
     end
 
-    def breadcrumbs(options = {})
-      ducktrail_render(LinkCollection.new(yield, current_uri, current_request).links)
+    def breadcrumbs(&block)
+      resources = build_resource(&block)
+      ducktrail_render(LinkCollection.new(resources, current_uri).links)
     end
 
-    def home_crumb(options = {})
-      link_to(Ducktrails.config.home_name, '/')
+    def build_resource(&block)
+      block_given? ? yield : nil
     end
 
     private
 
     def current_uri
       request.fullpath
-    end
-
-    def current_request
-      request
     end
 
     def current_action
