@@ -11,5 +11,6 @@ gemspec
 # your gem to rubygems.org.
 
 group :development, :test do
+  gem 'minitest-focus'
   gem 'pry'
 end
