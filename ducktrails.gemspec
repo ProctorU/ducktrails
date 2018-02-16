@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 4.1"
 
+  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'mocha'
   s.add_development_dependency 'pg'
-  s.add_development_dependency 'capybara-webkit'
-  s.add_development_dependency 'minitest-rails-capybara'
 end

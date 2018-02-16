@@ -10,13 +10,6 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem 'minitest-ci'   # for CircleCI
-
-group :test do
-  gem 'mocha'
-end
-
 group :development, :test do
-  gem 'factory_girl_rails'
   gem 'pry'
 end

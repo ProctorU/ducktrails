@@ -44,20 +44,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
     builder (3.2.3)
-    capybara (2.12.0)
-      addressable
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-webkit (1.12.0)
-      capybara (>= 2.3.0, < 2.13.0)
-      json
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     erubi (1.6.1)
@@ -69,7 +57,6 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.4)
-    json (2.1.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
@@ -81,22 +68,6 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.2.0)
     minitest (5.10.2)
-    minitest-capybara (0.8.2)
-      capybara (~> 2.2)
-      minitest (~> 5.0)
-      rake
-    minitest-ci (3.2.0)
-      minitest (>= 5.0.6)
-    minitest-metadata (0.6.0)
-      minitest (>= 4.7, < 6.0)
-    minitest-rails (3.0.0)
-      minitest (~> 5.8)
-      railties (~> 5.0)
-    minitest-rails-capybara (3.0.0)
-      capybara (~> 2.7)
-      minitest-capybara (~> 0.8)
-      minitest-metadata (~> 0.6)
-      minitest-rails (~> 3.0)
     mocha (1.2.1)
       metaclass (~> 0.0.1)
     nio4r (2.1.0)
@@ -107,7 +78,6 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    public_suffix (2.0.5)
     rack (2.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -150,21 +120,16 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xpath (2.1.0)
-      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara-webkit
   ducktrails!
   factory_girl_rails
-  minitest-ci
-  minitest-rails-capybara
   mocha
   pg
   pry
 
 BUNDLED WITH
-   1.15.3
+   1.16.1
