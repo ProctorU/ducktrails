@@ -30,6 +30,8 @@ module Ducktrails
         # build links based off of uri
         build_link(link_text(resource.underscore.titleize))
       end
+    rescue ActionController::RoutingError
+      nil
     end
 
     private
@@ -62,17 +64,20 @@ module Ducktrails
         return controller_resource_title
       end
 
-      if show_action
+      case request_pattern(progressive_uri)[:action]
+      when 'show'
         resource[:resource].send(resource[:key])
-      elsif edit_action
-        'Edit ' + resourcer(resource.try(:resource)).singularize
+      when 'edit'
+        'Edit ' + resource[:resource].send(resource[:key])
+      when 'new'
+        'New ' + resourcer(resource.try(:resource)).singularize
       else
         resourcer(resource.try(:resource))
       end
     end
 
     def string_resource
-      return resource if show_action || edit_action || new_action
+      return resource.titleize if show_action || edit_action || new_action
       resource.titleize.prepend(col_prefix)
     end
 
@@ -88,10 +93,6 @@ module Ducktrails
       return string_resource if request_pattern[:controller].split('/')[uri_index].nil?
       request_pattern[:controller].split('/')[uri_index].underscore.titleize.pluralize.
         prepend(col_prefix)
-    end
-
-    def current_action
-      @action ||= request_pattern[:action]
     end
 
     def col_prefix
