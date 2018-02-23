@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   root to: 'posts#index'
 
   resources :posts
+
+  resources :pets, module: 'pets' do
+    resources :kittens
+  end
 end
