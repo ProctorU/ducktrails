@@ -8,12 +8,11 @@ module Ducktrails
   class Resource
     include Configurable
 
-    attr_reader :resources, :resource, :uri_array, :current_uri
+    attr_reader :resources, :resource, :current_uri
 
-    def initialize(resources, resource, uri_array, current_uri)
+    def initialize(resources, resource, current_uri)
       @resources = DeepStruct.new(resources)
       @resource = resource
-      @uri_array = uri_array
       @current_uri = current_uri
     end
 
@@ -36,8 +35,12 @@ module Ducktrails
 
     private
 
+    def split_uri
+      @split_uri ||= current_uri.split('/').reject(&:empty?)
+    end
+
     def uri_index
-      uri_array.index(resource)
+      split_uri.index(resource)
     end
 
     # TODO: Refactor this to use a resource given by the view_helpers?
@@ -53,7 +56,7 @@ module Ducktrails
     end
 
     def progressive_uri
-      uri_array[0..uri_index].join('/').prepend('/')
+      split_uri[0..uri_index].join('/').prepend('/')
     end
 
     def link_text(resource)
