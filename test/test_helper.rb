@@ -7,14 +7,9 @@ ActiveRecord::Migrator.migrations_paths =
 
 require 'rails/test_help'
 require 'mocha/mini_test'
-require 'minitest/rails/capybara'
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 Rails::TestUnitReporter.executable = 'bin/test'
-
-class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
-end
