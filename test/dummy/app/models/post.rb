@@ -1,3 +1,3 @@
-class Post < ApplicationRecord
-  validates :title, presence: true
+class Pets < ApplicationRecord
+  validates :name, presence: true
 end
