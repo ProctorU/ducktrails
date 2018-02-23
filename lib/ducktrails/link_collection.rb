@@ -6,7 +6,7 @@ DEFAULTS = {
 }.freeze
 
 module Ducktrails
-  class LinkCollection < Array
+  class LinkCollection
     include Configurable
 
     attr_accessor :resources, :current_uri
