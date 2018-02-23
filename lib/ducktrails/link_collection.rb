@@ -18,7 +18,7 @@ module Ducktrails
 
     def links
       split_uri.inject([]) do |links, uri_resource|
-        links << Resource.new(resources, uri_resource, split_uri, current_uri)
+        links << Resource.new(resources, uri_resource, current_uri)
           .link
       end.compact
     end
